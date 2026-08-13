@@ -3,7 +3,18 @@ import type {
   OrderCalculationResponse, ObservabilityStep, RecommendationOutput
 } from '../types';
 
-const API_BASE = '/api';
+const getApiUrl = (endpoint: string): string => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  if (!envUrl) {
+    return `/api${path}`;
+  }
+  const baseUrl = envUrl.replace(/\/$/, '');
+  if (baseUrl.endsWith('/api')) {
+    return `${baseUrl}${path}`;
+  }
+  return `${baseUrl}/api${path}`;
+};
 
 export interface ChatResponseData {
   message: string;
@@ -15,7 +26,7 @@ export interface ChatResponseData {
 
 export const api = {
   async sendChatMessage(message: string, profile: CustomerProfile): Promise<ChatResponseData> {
-    const res = await fetch(`${API_BASE}/chat`, {
+    const res = await fetch(getApiUrl('/chat'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -45,7 +56,9 @@ export const api = {
     if (params?.caffeine && params.caffeine !== 'any') searchParams.append('caffeine', params.caffeine);
     if (params?.temperature && params.temperature !== 'any') searchParams.append('temperature', params.temperature);
 
-    const res = await fetch(`${API_BASE}/menu?${searchParams.toString()}`);
+    const queryString = searchParams.toString();
+    const endpoint = queryString ? `/menu?${queryString}` : '/menu';
+    const res = await fetch(getApiUrl(endpoint));
     if (!res.ok) {
       throw new Error(`Menu API error: ${res.statusText}`);
     }
@@ -54,7 +67,7 @@ export const api = {
   },
 
   async fetchProductDetails(productId: string): Promise<{ product: Product; pairings: Product[] }> {
-    const res = await fetch(`${API_BASE}/menu/${productId}`);
+    const res = await fetch(getApiUrl(`/menu/${productId}`));
     if (!res.ok) {
       throw new Error(`Product details API error: ${res.statusText}`);
     }
@@ -62,7 +75,7 @@ export const api = {
   },
 
   async fetchStoreInfo(): Promise<StoreInfo> {
-    const res = await fetch(`${API_BASE}/store`);
+    const res = await fetch(getApiUrl('/store'));
     if (!res.ok) {
       throw new Error(`Store info API error: ${res.statusText}`);
     }
@@ -70,7 +83,7 @@ export const api = {
   },
 
   async calculateOrder(items: OrderItemInput[]): Promise<OrderCalculationResponse> {
-    const res = await fetch(`${API_BASE}/order/calculate`, {
+    const res = await fetch(getApiUrl('/order/calculate'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items })
@@ -82,7 +95,7 @@ export const api = {
   },
 
   async fetchObservabilityTraces(): Promise<any> {
-    const res = await fetch(`${API_BASE}/observability`);
+    const res = await fetch(getApiUrl('/observability'));
     if (!res.ok) {
       throw new Error(`Observability API error: ${res.statusText}`);
     }
