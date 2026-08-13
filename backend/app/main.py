@@ -1,6 +1,6 @@
 import os
 import sys
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -56,9 +56,9 @@ if os.path.exists(frontend_dist):
 
     @app.get("/{full_path:path}")
     async def serve_spa(full_path: str):
-        # Allow /api and /health routes to be handled by FastAPI
-        if full_path.startswith("api/") or full_path == "health":
-            return None
+        # Exclude /api and /health paths from SPA catch-all router
+        if full_path.startswith("api") or full_path == "health":
+            raise HTTPException(status_code=404, detail="API route not found")
         file_path = os.path.join(frontend_dist, full_path)
         if os.path.exists(file_path) and os.path.isfile(file_path):
             return FileResponse(file_path)
