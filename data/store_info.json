@@ -1,0 +1,78 @@
+{
+  "store_name": "BrewMate Coffee House",
+  "tagline": "Craft Coffee, Personalized for You",
+  "location": {
+    "address": "123 Brew Street, 100 Feet Road, Indiranagar",
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "pincode": "560038",
+    "landmark": "Near Indiranagar Metro Station"
+  },
+  "contact": {
+    "phone": "+91 98765 43210",
+    "email": "hello@brewmateai.com",
+    "website": "https://brewmate-ai.run.app"
+  },
+  "hours": {
+    "Monday": "07:00 AM - 10:00 PM",
+    "Tuesday": "07:00 AM - 10:00 PM",
+    "Wednesday": "07:00 AM - 10:00 PM",
+    "Thursday": "07:00 AM - 10:00 PM",
+    "Friday": "07:00 AM - 11:00 PM",
+    "Saturday": "07:30 AM - 11:00 PM",
+    "Sunday": "07:30 AM - 10:00 PM"
+  },
+  "ordering_and_pickup": {
+    "counter_pickup": "Available for all orders. Preparation time is typically 5 to 10 minutes.",
+    "curbside_pickup": "Available upon request via phone or mobile order.",
+    "dine_in": "Free Wi-Fi available for guests. Outdoor terrace seating available.",
+    "customizations": "Plant-based milk options (Oat, Almond, Soy) available for ₹30 extra. Extra espresso shots ₹40."
+  },
+  "delivery": {
+    "available": true,
+    "radius_km": 8,
+    "min_order_amount": 200,
+    "free_delivery_above": 500,
+    "estimated_time_minutes": "25 - 40 minutes"
+  },
+  "loyalty_program": {
+    "name": "BrewRewards",
+    "earning_rate": "Earn 10 points for every ₹100 spent.",
+    "redemption": "100 points = ₹50 discount on any drink or pastry.",
+    "perks": "Free birthday beverage, exclusive double-points days, early seasonal access."
+  },
+  "seasonal_specials": [
+    {
+      "name": "Monsoon Spice Oat Latte",
+      "description": "Warming blend of espresso, spiced cardamom syrup, and velvety oat milk.",
+      "price": 290
+    },
+    {
+      "name": "Iced Mango Passionfruit Green Tea",
+      "description": "Tropical jasmine tea infused with fresh Alphonso mango and passionfruit puree.",
+      "price": 230
+    }
+  ],
+  "faq": [
+    {
+      "question": "What coffee beans do you use?",
+      "answer": "We source 100% specialty Arabica beans directly from sustainable shade-grown estates in Chikmagalur and Coorg, India, roasted in-house weekly."
+    },
+    {
+      "question": "Do you have vegan and dairy-free options?",
+      "answer": "Yes! All our coffees and teas can be prepared with Barista Oat Milk or Almond Milk. We also offer certified vegan pastries, sandwiches, and cold brews."
+    },
+    {
+      "question": "Are your food items fresh?",
+      "answer": "Our croissants, muffins, bagels, and sandwiches are baked and prepared fresh every morning by our in-house pastry chef."
+    },
+    {
+      "question": "Do you have drinks without caffeine?",
+      "answer": "Yes! We offer Belgian Hot Chocolate, Iced Belgian Chocolate, Herbal Chamomile Tea, and decaf coffee options."
+    },
+    {
+      "question": "What is the price range of beverages?",
+      "answer": "Our beverages range from ₹160 for a Classic Espresso up to ₹330 for specialty blended frappes. Most regular coffee drinks are under ₹300."
+    }
+  ]
+}

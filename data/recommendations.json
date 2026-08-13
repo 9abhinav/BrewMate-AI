@@ -1,0 +1,48 @@
+{
+  "flavor_mappings": {
+    "sweet": ["prod-008", "prod-010", "prod-011", "prod-013", "prod-014", "prod-016", "prod-017", "prod-018", "prod-019", "prod-023"],
+    "chocolate": ["prod-010", "prod-011", "prod-016", "prod-018", "prod-019", "prod-023", "prod-024", "prod-026", "prod-033", "prod-035"],
+    "bold": ["prod-001", "prod-003", "prod-004", "prod-012"],
+    "creamy": ["prod-005", "prod-006", "prod-007", "prod-008", "prod-013", "prod-015", "prod-017", "prod-020", "prod-023"],
+    "fruity": ["prod-002", "prod-021", "prod-027", "prod-034"],
+    "nutty": ["prod-008", "prod-009", "prod-028", "prod-034"]
+  },
+  "caffeine_guides": {
+    "high": ["prod-001", "prod-002", "prod-012", "prod-013", "prod-014"],
+    "medium": ["prod-003", "prod-004", "prod-005", "prod-006", "prod-007", "prod-008", "prod-009", "prod-010", "prod-011", "prod-015", "prod-016", "prod-017", "prod-018", "prod-019"],
+    "low": ["prod-020", "prod-021"],
+    "none": ["prod-022", "prod-023", "prod-024", "prod-025", "prod-026", "prod-027", "prod-028", "prod-029", "prod-030", "prod-031", "prod-032", "prod-033", "prod-034", "prod-035"]
+  },
+  "food_pairings": [
+    {
+      "drink_category": "Espresso",
+      "best_pairings": ["prod-025", "prod-028", "prod-033", "prod-035"],
+      "reasoning": "Intense, dark espresso cuts cleanly through butter croissants, sweet biscotti, and dark fudgy brownies."
+    },
+    {
+      "drink_category": "Latte",
+      "best_pairings": ["prod-025", "prod-026", "prod-028", "prod-030"],
+      "reasoning": "Velvety steamed milk complements buttery French croissants, pain au chocolat, and spinach feta toasties."
+    },
+    {
+      "drink_category": "Cold Brew",
+      "best_pairings": ["prod-027", "prod-031", "prod-032"],
+      "reasoning": "Smooth, low-acidity cold brew pairs wonderfully with blueberry muffins, avocado bagels, and smoked chicken paninis."
+    },
+    {
+      "drink_category": "Mocha",
+      "best_pairings": ["prod-025", "prod-026", "prod-031"],
+      "reasoning": "Rich dark chocolate notes in mochas complement savory paninis and crispy pastries."
+    },
+    {
+      "drink_category": "Tea",
+      "best_pairings": ["prod-027", "prod-028", "prod-034"],
+      "reasoning": "Floral and fruity teas go best with light fruit muffins, vegan oat cookies, and almond biscotti."
+    }
+  ],
+  "budget_tiers": {
+    "budget_under_200": ["prod-001", "prod-002", "prod-003", "prod-004", "prod-021", "prod-022", "prod-025", "prod-026", "prod-027", "prod-028", "prod-029", "prod-033", "prod-034", "prod-035"],
+    "mid_range_200_300": ["prod-005", "prod-006", "prod-007", "prod-008", "prod-009", "prod-010", "prod-011", "prod-012", "prod-013", "prod-014", "prod-015", "prod-016", "prod-017", "prod-020", "prod-023", "prod-024", "prod-030", "prod-032"],
+    "premium_above_300": ["prod-018", "prod-019", "prod-031"]
+  }
+}
