@@ -26,18 +26,37 @@ export interface ChatResponseData {
 
 export const api = {
   async sendChatMessage(message: string, profile: CustomerProfile): Promise<ChatResponseData> {
-    const res = await fetch(getApiUrl('/chat'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message,
-        profile
-      })
-    });
-    if (!res.ok) {
-      throw new Error(`Chat API error: ${res.statusText}`);
+    const url = getApiUrl('/chat');
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message,
+          profile
+        })
+      });
+      
+      if (!res.ok) {
+        let errDetail = res.statusText;
+        try {
+          const errJson = await res.json();
+          if (errJson.detail) errDetail = errJson.detail;
+        } catch {
+          // Ignore non-json response body
+        }
+        if (res.status === 404) {
+          throw new Error(`API endpoint not found at ${url}. Please verify that your backend service is deployed and VITE_API_URL is configured in Netlify environment variables.`);
+        }
+        throw new Error(`Chat API error (${res.status}): ${errDetail}`);
+      }
+      return await res.json();
+    } catch (err: any) {
+      if (err.message && (err.message.includes('API endpoint not found') || err.message.includes('Chat API error'))) {
+        throw err;
+      }
+      throw new Error(`Unable to connect to backend service at ${url}. Please verify backend status and VITE_API_URL configuration.`);
     }
-    return await res.json();
   },
 
   async fetchMenu(params?: {

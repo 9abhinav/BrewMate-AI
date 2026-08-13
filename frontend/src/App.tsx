@@ -103,12 +103,14 @@ export function App() {
         setActiveTrace(response.observability_trace);
       }
       setLastLatencyMs(response.latency_ms);
-    } catch (e) {
+    } catch (e: any) {
       console.error('Chat error', e);
+      const detailMsg = e.message || 'Connecting to barista engine failed.';
       const errorMsg: ChatMessage = {
         id: `msg-err-${Date.now()}`,
         sender: 'assistant',
-        text: 'Sorry, I ran into an issue connecting to our barista engine. Please try again in a moment!',
+        text: `⚠️ **Connection Error**: ${detailMsg}\n\n*Note for Production*: If your backend is deployed on Google Cloud Run, please ensure \`VITE_API_URL\` is configured in Netlify Site Settings.`,
+        suggested_actions: ['Retry request', 'View Full Menu', 'Check Store Info'],
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages((prev) => [...prev, errorMsg]);
