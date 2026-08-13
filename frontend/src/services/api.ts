@@ -3,13 +3,23 @@ import type {
   OrderCalculationResponse, ObservabilityStep, RecommendationOutput
 } from '../types';
 
+// Default live public backend server URL
+const DEFAULT_PUBLIC_BACKEND = 'https://5bed418d6dbe64.lhr.life';
+
 const getApiUrl = (endpoint: string): string => {
   const envUrl = import.meta.env.VITE_API_URL;
   const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  if (!envUrl) {
-    return `/api${path}`;
+  
+  let baseUrl = envUrl;
+  if (!baseUrl) {
+    // If running in local dev browser, fallback to /api proxy
+    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+      return `/api${path}`;
+    }
+    baseUrl = DEFAULT_PUBLIC_BACKEND;
   }
-  const baseUrl = envUrl.replace(/\/$/, '');
+
+  baseUrl = baseUrl.replace(/\/$/, '');
   if (baseUrl.endsWith('/api')) {
     return `${baseUrl}${path}`;
   }
@@ -30,7 +40,9 @@ export const api = {
     try {
       const res = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           message,
           profile
@@ -45,17 +57,14 @@ export const api = {
         } catch {
           // Ignore non-json response body
         }
-        if (res.status === 404) {
-          throw new Error(`API endpoint not found at ${url}. Please verify that your backend service is deployed and VITE_API_URL is configured in Netlify environment variables.`);
-        }
         throw new Error(`Chat API error (${res.status}): ${errDetail}`);
       }
       return await res.json();
     } catch (err: any) {
-      if (err.message && (err.message.includes('API endpoint not found') || err.message.includes('Chat API error'))) {
+      if (err.message && err.message.includes('Chat API error')) {
         throw err;
       }
-      throw new Error(`Unable to connect to backend service at ${url}. Please verify backend status and VITE_API_URL configuration.`);
+      throw new Error(`Unable to connect to backend service at ${url}. Please verify backend status.`);
     }
   },
 
